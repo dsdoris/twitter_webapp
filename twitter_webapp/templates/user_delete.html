@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+
+{% block title  %}
+<h1>
+    <p class="text-danger">
+        | 회원 탈퇴
+    </p>
+</h1>
+{% endblock  %}
+
+
+{% block main_body  %}
+<div class="row-cols-1" style="height: 80px;">
+    <h5>
+        이용자 삭제 페이지입니다.<br>
+        아래 이용자를 삭제하려면 Delete 버튼을 눌러주세요.
+    </h5>
+</div>
+
+<!-- {% if data %}
+<form method="POST" action="/{username}/delete">
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">followers</th>
+        <th scope="col">location</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in data %}
+        <tr>
+        <th scope="row"><input type="text" readonly class="form-control-plaintext" id="userid" name="userid" value="{{ user.id }}"></th>
+        <td><input type="text" readonly class="form-control-plaintext" id="userid" name="userid" value="{{ user.username }}"></td>
+        <td>{{ user.full_name }}</td>
+        <td>{{ user.followers }}</td>
+        <td>{{ user.location }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</form>
+{% endif %} -->
+
+<!-- <div class="form-check">
+    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+  </div> -->
+
+{% if data %}
+    {% for user in data %}
+<form method="POST" action="/{{ user.username }}/delete">
+    <div class="form-group row" >
+      <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+      <div class="col-sm-5">
+        {% if username!="{username}" %}
+        <input type="text" class="form-control" id="inputUsername" name="username" value="{{ user.username }}" readonly>
+        {% else %}
+        <input type="text" class="form-control" id="inputUsername" name="username" value="{{ user.username }}">
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputFullname" class="col-sm-2 col-form-label">Full name</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputFullname" name="full_name" value="{{ user.full_name }}" readonly>
+      </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputFollwers" class="col-sm-2 col-form-label">Followers</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="inputFollwers" name="followers" value="{{ user.followers }}" readonly>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputLocation" class="col-sm-2 col-form-label">Location</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="inputLocation" name="location" value="{{ user.location }}" readonly>
+        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-6"></div>
+      <div class="col-sm-2">
+        <input type="submit" class="btn btn-outline-danger" value="Delete" />
+      </div>
+    </div>
+  </form>
+  {% endfor %}
+{% endif %}
+
+{% endblock  %}

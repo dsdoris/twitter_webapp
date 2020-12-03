@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block title  %}
+<h1>
+    <p class="text-danger">
+        | 이용자 등록
+    </p>
+</h1>
+{% endblock  %}
+
+
+{% block main_body  %}
+<div class="row-cols-1" style="height: 80px;">
+    <h5>
+        이용자 등록 페이지입니다.<br>
+        아래 양식에 정보를 기입해주세요.
+    </h5>
+</div>
+
+
+<form method="POST" action="/{username}/add">
+    <div class="form-group row" >
+      <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+      <div class="col-sm-5">
+        {% if username!="{username}" %}
+        <input type="text" class="form-control" id="inputUsername" name="username" value="{{ username }}">
+        {% else %}
+        <input type="text" class="form-control" id="inputUsername" name="username">
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputFullname" class="col-sm-2 col-form-label">Full name</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputFullname" name="full_name">
+      </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputFollwers" class="col-sm-2 col-form-label">Followers</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="inputFollwers" name="followers">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputLocation" class="col-sm-2 col-form-label">Location</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="inputLocation" name="location">
+        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-6"></div>
+      <div class="col-sm-2">
+        <input type="submit" class="btn btn-outline-danger" value="Add" />
+      </div>
+    </div>
+  </form>
+{% endblock %}

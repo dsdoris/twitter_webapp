@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title  %}
+<h1>
+    <p class="text-danger">
+        | 트윗 조회
+    </p>
+</h1>
+{% endblock  %}
+
+
+{% block main_body  %}
+<div class="row-cols-1" style="height: 80px;">
+    <h5>
+        <br>이용자가 남긴 트윗입니다.
+    </h5>
+</div>
+
+{% if data %}
+<ul class="list-group">
+    <li class="list-group-item align-items-center"><b>?개의 Tweet</b></li> <!--트윗개수파악-->
+    {% for tweet in data %}
+    <li class="list-group-item">{{ tweet.full_text }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% endblock  %}
