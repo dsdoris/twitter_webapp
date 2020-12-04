@@ -11,8 +11,22 @@
 
 
 {% block main_body  %}
-You can see all users.<br>
+<div class="container" style="height: 80px;">
+  <div class="row">
+    <div class="col-sm-1">
+      <a href="/{username}/add" role="button" class="btn btn-danger">Add</a>
+    </div>
+    <div class="col-sm-10 d-flex justify-content-end" >
+      <a href="/update" role="button" class="btn btn-danger">update</a> 
+    </div>
+    <div class="col-sm-1">
+      <a href="/{username}/delete" role="button" class="btn btn-danger">delete</a>
+    </div>
+  </div>
+  
+</div>
 {% if data %}
+<div>
   <table class="table">
     <thead>
       <tr>
@@ -33,12 +47,12 @@ You can see all users.<br>
         <td>{{ user.full_name }}</td>
         <td>{{ user.followers }}</td>
         <td>{{ user.location }}</td>
-        <td><input class="form-check-input" type="checkbox" id="deleteChk" name="delUsername"></td>
+        <td><input class="form-check-input" type="checkbox" id="deleteChk" name="delUsername" value="{{ user.username }}"></td>
       </tr>      
     </form>
     </tbody>
     {% endfor %}
   </table>
-
+</div>
 {% endif %}
 {% endblock  %}

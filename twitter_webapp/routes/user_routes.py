@@ -16,11 +16,13 @@ def add(username):
     if request.method == "POST":
         print(dict(request.form))
         result = request.form
+        user = twitter_api.api.get_user(screen_name=result["username"])
 
-        db.session.add(User(username = result["username"], #null chk, unique chk
-                            full_name = result["full_name"], #null chk
-                            followers = result["followers"],
-                            location = result["location"]))
+        db.session.add(User(id = user.id,
+                            username = result["username"], #null chk, unique chk
+                            full_name = user.name, #null chk
+                            followers = user.followers_count,
+                            location = user.location))
 
         db.session.commit()
     return render_template('user_add.html', username=username)
@@ -29,8 +31,11 @@ def add(username):
 # /{트위터 유저이름}/delete : 유저 삭제 페이지
 @user_routes.route("/delete", methods=["GET", "POST"])
 def delete(username):
-    data = User.query.filter(User.username == username).all()
-    print(data)
+    if username != "{username}":
+        data = User.query.filter(User.username == username).all()
+    else:
+        data = username
+
     if request.method == "POST":
         print(dict(request.form))
         result = request.form
@@ -46,13 +51,6 @@ def delete(username):
 # /{트위터 유저이름}/get : 트윗 조회 페이지
 @user_routes.route("/get", methods=["GET", "POST"])
 def get(username):
-    #data=set_tweetdata()
-
-    # public_tweets = twitter_api.api.user_timeline("Dorisoh3")
-    # for tweet in public_tweets:
-    #     print(tweet.text)
-
-    raw_tweets = twitter_api.api.user_timeline(screen_name=username, count=10, include_rts=False, exclude_replies=True, tweet_mode="extended")
-
-
-    return render_template('user_get.html', data=raw_tweets)
+    set_result = set_tweetdata(username)
+    
+    return render_template('user_get.html', data=set_result)

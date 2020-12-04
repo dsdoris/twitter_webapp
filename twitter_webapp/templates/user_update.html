@@ -11,6 +11,19 @@
 
 
 {% block main_body  %}
-You can update user's information.
+You can update user's information.<br>
+
+
+<form method="POST" action="/{username}/add">
+    <div class="form-group row" >
+      <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputUsername" name="username">
+      </div>
+      <div class="col-sm-2">
+        <input type="submit" class="btn btn-outline-danger" value="Update" />
+      </div>
+    </div>
+  <form>
 
 {% endblock  %}

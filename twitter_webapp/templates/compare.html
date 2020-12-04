@@ -11,5 +11,41 @@
 
 
 {% block main_body  %}
-We will show you which one is possible to say specific words.
+<div class="row-cols-1" style="height: 100px;">
+    <h5>
+        이용자 트윗 분석 페이지입니다.<br>
+        두 이용자를 입력하시면 특정 단어를 말할 가능성이 높은 이용자를 예측합니다.<br>
+        분석할 username을 기입해주세요.
+    </h5>
+</div>
+
+<form method="POST" action="/{username}/add">
+    <div class="form-group row" >
+      <label for="inputUsername" class="col-sm-2 col-form-label">Username 1</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputUsername1" name="username1">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputUsername" class="col-sm-2 col-form-label">Username 2</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputUsername2" name="username2">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputUsername" class="col-sm-2 col-form-label">Text</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputtext" name="text">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-6"></div>
+      <input type="submit" class="btn btn-outline-danger" value="Compare" />
+    </div>
+  </form>
+
+{% if data %}
+    {{ data }}
+{% endif%}
+
 {% endblock  %}

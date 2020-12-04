@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, jsonify
-from twitter_webapp.models import User, Tweet
+from flask import Blueprint, render_template, request
+from twitter_webapp.models import db, User, Tweet, compare_user
 
 main_routes = Blueprint('main_routes', __name__)
 
@@ -20,20 +20,24 @@ def users():
 # /update: 유저 업데이트(수정) 페이지
 @main_routes.route('/update')
 def update():
+    user=[]
+    if request.method == "POST":
+        print(dict(request.form))
+        result = request.form
+        user = User.query.filter_by(username=result["username"]).first()
+
+        if result["full_name"] != "":
+            user.full_name = result["full_name"]
+            user.location = result["location"]  
+            db.session.commit()
     
-    return render_template("user_update.html")
+    return render_template("user_update.html", data=user)
 
 
 # /compare : 유저간 트윗 분석 페이지
 @main_routes.route('/compare')
 def compare():
-    
-    return render_template("compare.html")
-
-
-# @main_routes.route('/user.json')
-# def json_data():
-#     raw_data = get_data()
-#     parsed_data = parse_records(raw_data)
-    
-#     return jsonify(parsed_data)
+    result=[]
+    if request.method == "POST":
+        result = compare_user(user1, user2, word)
+    return render_template("compare.html", data=result)
