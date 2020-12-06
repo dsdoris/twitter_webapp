@@ -13,17 +13,34 @@
 {% block main_body  %}
 {% if data %}
 <div class="row-cols-1" style="height: 80px;">
-    <h5>
-        <br>이용자가 남긴 트윗입니다.
-    </h5>
+  <h5>
+      특정 이용자의 Tweet을 조회할 수 있는 페이지입니다.(최대 50개)<br>
+      조회할 username을 기입해주세요.
+  </h5>
 </div>
 
-<ul class="list-group">
-    <li class="list-group-item align-items-center"><b>{{ data|length }}개의 Tweet</b></li> <!--트윗개수파악-->
-    {% for tweet in data %}
-    <li class="list-group-item">{{ tweet.full_text }}</li>
-    {% endfor %}
-  </ul>
+<div class="row-cols-1" style="height: 80px;">
+    <form method="POST" action="/{username}/get">
+        <div class="form-group row" >
+          <label for="inputUsername" class="col-sm-1 col-form-label">Username</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="inputUsername" name="username">
+          </div>
+          <div class="col-sm-2">
+            <input type="submit" class="btn btn-outline-danger" value="Search" />
+          </div>
+        </div>
+    </form>
+</div>
+
+    {% if data[0] %}
+    <ul class="list-group">
+        <li class="list-group-item align-items-center"><b>{{ data[0] }}의 Tweet ({{ data[1]|length }}개)</b></li> 
+        {% for Tweet in data[1] %}
+        <li class="list-group-item">{{ Tweet.text }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 {% endif %}
 
 {% endblock  %}
