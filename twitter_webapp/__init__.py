@@ -4,15 +4,13 @@ from dotenv import load_dotenv
 from twitter_webapp.routes import main_routes, user_routes
 from twitter_webapp.models import db, migrate, set_tweetdata
 
-DATABASE_URI = "postgres://zrqkqnlltfajxp:59fdc59dd9fcb509208b9c8405f9abd1b48ec57cbec357a6470a4f6785775312@ec2-52-5-176-53.compute-1.amazonaws.com:5432/de97r8p9djmar7"
-
 # Twitter delvelop account 승인 시 작업 예정
 def create_app():
     load_dotenv()
     app = Flask(__name__)
 
     # 데이터베이스 초기설정
-    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
     app.config["SQLALCHEMY_TRACK_MODFICATIONS"] = False
     db.init_app(app)
     migrate.init_app(app, db)
